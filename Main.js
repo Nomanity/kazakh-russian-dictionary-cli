@@ -1,5 +1,4 @@
-const prompt = require('prompt-sync')({sigint : true});
-const fs = require('fs');
+import { addWord } from './addWord.js';
 
-const { addWord } = require('./addWord.js');
+// Импорт функции для добавления слов в словарь
 addWord();
