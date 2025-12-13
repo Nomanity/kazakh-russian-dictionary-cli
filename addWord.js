@@ -29,7 +29,6 @@ async function openJsonFile(fileName) {
         if (err.code === "ENOENT") {
             console.log(`Файл ${fileName} еще не был создан. Сейчас создам...`);
             await fs.writeFile(`./wordArrays/${fileName}`, "{}", { flag: "wx" });
-            setTimeout(() => console.log(`Создал новый файл с названием ${fileName}, папка "wordArrays"`), 1500);
             return {};
         } else {
             console.log("\n",err.message,"\n")
