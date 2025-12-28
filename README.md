@@ -1,0 +1,1 @@
+# kazakh-russian-dictionary-cli
