@@ -1,6 +1,11 @@
 
 import { startCli } from "./UI/cli.js";
-// import { select } from "@inquirer/prompts";
-// import { addWord, showWords } from "./dictionaryFunctions.js";
+import { addWord } from "./application/addWord.js";
+import { createRepository } from "./infrastructure/fileDictionaryRepository.js";
 
-startCli();
+const fileRepository = createRepository();
+
+
+startCli({
+    addWord: data => addWord(data, fileRepository)
+});
