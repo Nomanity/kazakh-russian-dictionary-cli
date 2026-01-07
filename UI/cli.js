@@ -1,5 +1,6 @@
 
-import { select } from "@inquirer/prompts"
+import { select } from "@inquirer/prompts";
+import { askAddWord } from "./prompts.js";
 
 export async function startCli({ addWord, showWords }) {
   while (true) {
@@ -13,7 +14,10 @@ export async function startCli({ addWord, showWords }) {
     });
 
     switch (action) {
-      case "add": await addWord(); break;      
+      case "add": 
+        const data = await askAddWord();
+        await addWord(data); 
+        break;      
       case "show": await showWords(); break;
       case "exit": console.log("Пока-пока 👋"); return;
     }

@@ -2,7 +2,7 @@
 import fs from "node:fs/promises";
 import { firstLetterOf } from "../domain/word.js";
 
-const DATA_PATH = "./data";
+const DATA_PATH = "C:/Users/Vomper/Desktop/QazVocabProject/infrastructure/data";
 
 function getFilePathForWord(word) {
     const letter = firstLetterOf(word);

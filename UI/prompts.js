@@ -19,20 +19,27 @@ function rangeValidation(arr, inputErr) {
     return true;
 }
 
-async function wordInput(message, inputErr = "Некорректный ввод") { 
-    let word = await input({
-        message: message,
-        validate(value) {
-            return wordValidation(value, inputErr);
-        },
-        transform(value) {
-            return value.toLowerCase();
-        }
-    });
-    return word.toLowerCase();
+// async function wordInput(message, inputErr = "Некорректный ввод") { 
+//     let word = await input({
+//         message: message,
+//         validate(value) {
+//             return wordValidation(value, inputErr);
+//         },
+//         transform(value) {
+//             return value.toLowerCase();
+//         }
+//     });
+//     return word.toLowerCase();
+// }
+
+export async function askAddWord() {
+    const kz = await input({message: "Новое слово на казахском:"});
+    const ru = await input({message: "Перевод на русский:"});
+    const data = { kz, ru };
+    return data;
 }
 
-async function rangeInput(message, inputErr = "Только казахские буквы") {
+export async function rangeInput(message, inputErr = "Только казахские буквы") {
     let userRangeInput = await input ({
         message: message,
         validate(value) {
@@ -49,5 +56,3 @@ async function rangeInput(message, inputErr = "Только казахские �
     return userRangeInput;
 }
 
-
-export { wordInput, rangeInput }; 
