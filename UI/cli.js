@@ -2,7 +2,7 @@
 import { select } from "@inquirer/prompts";
 import { askAddWord } from "./prompts.js";
 
-export async function startCli({ addWord, showWords }) {
+export async function startCli({ addWord, showAllWords }) {
   while (true) {
     const action = await select({
       message: "Что вы хотите сделать?",
@@ -18,7 +18,14 @@ export async function startCli({ addWord, showWords }) {
         const data = await askAddWord();
         await addWord(data); 
         break;      
-      case "show": await showWords(); break;
+      case "show":
+        const allWords = await showAllWords();
+        console.log("\n");
+        for (const [kz, ru] of allWords) {
+          console.log(`• ${kz} — ${ru}`);
+        }
+        console.log("\n");
+        break;
       case "exit": console.log("Пока-пока 👋"); return;
     }
   }

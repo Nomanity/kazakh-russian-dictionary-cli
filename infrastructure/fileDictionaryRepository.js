@@ -1,9 +1,10 @@
 
-import { loadData, saveData } from "./fileStorage.js";
+import { loadDataByLetter, loadAllData, saveData } from "./fileStorage.js";
 
 export function createRepository() {
     return {
-        load: loadData,
+        loadByLetter: loadDataByLetter,
+        loadAll: loadAllData,
         save: saveData
     }
 };

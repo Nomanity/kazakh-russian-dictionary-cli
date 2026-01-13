@@ -9,7 +9,7 @@ function getFilePathForWord(word) {
     return `${DATA_PATH}/${letter}${letter.toUpperCase()}.json`;
 }
 
-export async function loadData(word) {
+export async function loadDataByLetter(word) {
     const path = getFilePathForWord(word);
 
     try {
@@ -21,6 +21,16 @@ export async function loadData(word) {
         }
         throw err;
     }
+}
+
+export async function loadAllData() {
+    const files = await fs.readdir(DATA_PATH);
+    const allWords = await Promise.all(files.map(async file => {
+        const text = await fs.readFile(`${DATA_PATH}/${file}`, "utf8");
+        return JSON.parse(text);
+        })
+    );
+    return allWords;
 }
 
 export async function saveData(word, data) {
