@@ -1,6 +1,6 @@
 
 import { select } from "@inquirer/prompts";
-import { askAddWord, askUpdateWord } from "./prompts/prompts.js";
+import { askAddWord } from "./prompts/prompts.js";
 import { askShowWordsQuery } from "./prompts/showWordsPrompts.js";
 import { renderWordList } from "./renderWords.js";
 
