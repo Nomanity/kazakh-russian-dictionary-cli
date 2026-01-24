@@ -22,6 +22,7 @@ export async function startCli({ addWord, showWords, updateWord }) {
       case "add": {
         const data = await askAddWord();
         await addWord(data); 
+        console.log(`\n✅ Добавил пару ${data.kz} — ${data.ru} в словарь\n`);
         break;     
       } 
       case "show": {
