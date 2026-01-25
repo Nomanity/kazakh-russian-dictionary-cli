@@ -20,7 +20,7 @@ async function wordInput({message, inputErr = "Некорректный ввод
             return value.toLowerCase();
         }
     });
-    return word.toLowerCase();
+    return word.toLowerCase().trim();
 }
 
 export async function askAddWord() {
