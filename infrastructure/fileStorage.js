@@ -23,6 +23,16 @@ export async function loadDataByLetter(word) {
     }
 }
 
+export async function loadDataByWord(word) {
+    const wordDictionary = await loadDataByLetter(word);
+
+    if (Object.hasOwn(wordDictionary, word)) {
+        return { [word]: wordDictionary[word] };
+    } else {
+        return {};
+    }
+}
+
 export async function loadAllData() {
     const files = await fs.readdir(DATA_PATH);
     const allWords = await Promise.all(files.map(async file => {
