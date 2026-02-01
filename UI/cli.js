@@ -1,19 +1,20 @@
 
 import { select } from "@inquirer/prompts";
-import { askAddWord, askUpdateWord } from "./prompts/prompts.js";
+import { askAddWord, askUpdateWord, askDeleteWord } from "./prompts/prompts.js";
 import { askShowWordsQuery } from "./prompts/showWordsPrompts.js";
 import { renderWordList } from "./renderWords.js";
 
 
 
-export async function startCli({ addWord, showWords, updateWord }) {
+export async function startCli({ addWord, showWords, updateWord, deleteWord }) {
   while (true) {
     const action = await select({
       message: "Что вы хотите сделать?",
       choices: [
         { name: "➕ Добавить слово", value: "add" },
         { name: "👀 Посмотреть список слов", value: "show"},
-        { name: "♻️ Изменить перевод", value: "update"},
+        { name: "♻️  Изменить перевод", value: "update"},
+        { name: "🗑️  Удалить слово", value: "delete"},
         { name: "❌ Выход", value: "exit" }
       ]
     });
@@ -36,6 +37,13 @@ export async function startCli({ addWord, showWords, updateWord }) {
       await updateWord(data);
       console.log("Изменил перевод ✅");
       break;
+      }
+
+      case "delete": {
+        const wordToDelete = await askDeleteWord();
+        const { kz, ru } = await deleteWord(wordToDelete);
+        console.log(`Удалил "${kz} — ${ru}" из словаря`);
+        break;
       }
 
       case "exit": console.log("Пока-пока 👋"); return;

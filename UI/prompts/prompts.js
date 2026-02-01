@@ -36,3 +36,8 @@ export async function askUpdateWord() {
     const data = { kz, ru };
     return data;
 }
+
+export async function askDeleteWord() {
+    const kz = await wordInput({message: "Это слово удаляю 👉 "});
+    return kz;
+}
