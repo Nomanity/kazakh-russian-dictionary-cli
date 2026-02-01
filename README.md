@@ -24,7 +24,9 @@ The project is structured into layers:
 
 ## Features
 - Add a word
-- View words (in progress)
+- View words 
+- Update a word
+- Delete a word
 
 ## Notes
 This project is being actively refactored to improve architecture quality.
