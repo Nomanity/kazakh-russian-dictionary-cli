@@ -6,6 +6,6 @@ export function createRepository() {
         loadByLetter: loadDataByLetter,
         loadByWord: loadDataByWord,
         loadAll: loadAllData,
-        save: saveData
+        save: saveData,
     }
 };
