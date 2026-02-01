@@ -1,18 +1,20 @@
 
 import { select } from "@inquirer/prompts";
-import { askAddWord } from "./prompts/prompts.js";
+import { askAddWord, askUpdateWord, askDeleteWord } from "./prompts/prompts.js";
 import { askShowWordsQuery } from "./prompts/showWordsPrompts.js";
 import { renderWordList } from "./renderWords.js";
 
 
 
-export async function startCli({ addWord, showWords }) {
+export async function startCli({ addWord, showWords, updateWord, deleteWord }) {
   while (true) {
     const action = await select({
       message: "Что вы хотите сделать?",
       choices: [
         { name: "➕ Добавить слово", value: "add" },
         { name: "👀 Посмотреть список слов", value: "show"},
+        { name: "♻️  Изменить перевод", value: "update"},
+        { name: "🗑️  Удалить слово", value: "delete"},
         { name: "❌ Выход", value: "exit" }
       ]
     });
@@ -21,6 +23,7 @@ export async function startCli({ addWord, showWords }) {
       case "add": {
         const data = await askAddWord();
         await addWord(data); 
+        console.log(`\n✅ Добавил пару ${data.kz} — ${data.ru} в словарь\n`);
         break;     
       } 
       case "show": {
@@ -29,6 +32,20 @@ export async function startCli({ addWord, showWords }) {
         renderWordList(results);
         break;
       }
+      case "update": {
+      const data = await askUpdateWord();
+      await updateWord(data);
+      console.log("Изменил перевод ✅");
+      break;
+      }
+
+      case "delete": {
+        const wordToDelete = await askDeleteWord();
+        const { kz, ru } = await deleteWord(wordToDelete);
+        console.log(`Удалил "${kz} — ${ru}" из словаря`);
+        break;
+      }
+
       case "exit": console.log("Пока-пока 👋"); return;
     }
   }

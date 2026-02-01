@@ -10,15 +10,6 @@ function wordValidation(value, inputErr) {
     return true;
 }
 
-function rangeValidation(arr, inputErr) {
-    const regexRange = /^[а-яёәіңғқөұүһ ]+$/i
-    if (!arr) return "Введите слово";
-    if (!regexRange.test(arr)) {
-        return inputErr;
-    }
-    return true;
-}
-
 async function wordInput({message, inputErr = "Некорректный ввод"}) { 
     let word = await input({
         message: message,
@@ -29,30 +20,24 @@ async function wordInput({message, inputErr = "Некорректный ввод
             return value.toLowerCase();
         }
     });
-    return word.toLowerCase();
+    return word.toLowerCase().trim();
 }
 
 export async function askAddWord() {
-    const kz = await wordInput({message: "Новое слово на казахском:"});
-    const ru = await wordInput({message: "Перевод на русский:"});
+    const kz = await wordInput({message: "Новое слово на казахском: "});
+    const ru = await wordInput({message: "Перевод на русский: "});
     const data = { kz, ru };
     return data;
 }
 
-export async function rangeInput(message, inputErr = "Только казахские буквы") {
-    let userRangeInput = await input ({
-        message: message,
-        validate(value) {
-            return rangeValidation(value, inputErr);
-        },
-        transform(value) {
-            return value.toLowerCase();
-        }
-    });
-    userRangeInput = userRangeInput
-        .toLowerCase()
-        .replace(/\s*/g, "")
-        .trim();
-    return userRangeInput;
+export async function askUpdateWord() {
+    const kz = await wordInput({message: "Cлово на казахском: "});
+    const ru = await wordInput({message: "Новое значение: "});
+    const data = { kz, ru };
+    return data;
 }
 
+export async function askDeleteWord() {
+    const kz = await wordInput({message: "Это слово удаляю 👉 "});
+    return kz;
+}

@@ -1,4 +1,7 @@
 
+// deleteData development in progress
+
+
 import fs from "node:fs/promises";
 import { firstLetterOf } from "../domain/word.js";
 
@@ -23,6 +26,16 @@ export async function loadDataByLetter(word) {
     }
 }
 
+export async function loadDataByWord(word) {
+    const wordDictionary = await loadDataByLetter(word);
+
+    if (Object.hasOwn(wordDictionary, word)) {
+        return { [word]: wordDictionary[word] };
+    } else {
+        return {};
+    }
+}
+
 export async function loadAllData() {
     const files = await fs.readdir(DATA_PATH);
     const allWords = await Promise.all(files.map(async file => {
@@ -33,7 +46,9 @@ export async function loadAllData() {
     return allWords;
 }
 
+
 export async function saveData(word, data) {
     const path = getFilePathForWord(word);
     await fs.writeFile(path, JSON.stringify(data, null, 2))
 }
+
